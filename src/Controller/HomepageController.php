@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomepageController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="homepage")
      */
     public function index ()
     {

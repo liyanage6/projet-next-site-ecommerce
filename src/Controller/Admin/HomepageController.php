@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomepageController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="homepage-admin")
      */
     public function index ()
     {

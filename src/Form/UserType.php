@@ -25,8 +25,7 @@ class UserType extends AbstractType
             ->add('submit', SubmitType::class, array(
                 'label' => 'Envoyer',
                 'attr' => ['class' => 'btn-primary btn-block']
-            ))
-        ;
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

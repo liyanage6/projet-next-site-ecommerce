@@ -8,19 +8,30 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use App\Entity\User;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /** @Route("/user")*/
-class UserController extends Controller
+class UserController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/profile/{id}", name="profile")
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index () {
-        return $this->render('user/index.html.twig', [
+    public function profileAction (User $user) {
+        $em = $this->getDoctrine()->getManager();
+
+        if ($user != $this->getUser()) {
+            throw new AccessDeniedException("You don't have the right to access to this page.");
+        }
+
+        return $this->render('security/profile.html.twig', [
             'mainNavMember' => true,
-            'title' => 'Espace Membre'
+            'title' => 'Profile',
+            'user' => $user
         ]);
     }
 }

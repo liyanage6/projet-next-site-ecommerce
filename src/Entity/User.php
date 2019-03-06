@@ -19,7 +19,7 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
@@ -28,13 +28,12 @@ class User implements UserInterface
     /**
      * The below length depends on the "algorithm" you use for encoding
      * the password, but this works well with bcrypt.
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=150)
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
      * @Assert\Length(max=250)
      */
     private $plainPassword;

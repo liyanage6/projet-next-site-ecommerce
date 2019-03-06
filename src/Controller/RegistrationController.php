@@ -36,11 +36,14 @@ class RegistrationController extends Controller
         // 2) handle the submit (will only happen on POST)
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
+            $datas = $form->getData();
             // 3) encode the password (you could also do this via Doctrine listener)
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             // on active par default
             $user->setIsActive(true);
+            $user->setEmail($datas->getEmail());
+            $user->setPlainPassword($datas->getPlainPassword());
 //            $user->addRole("ROLE_ADMIN");
             // 4) save the user
             $em = $this->getDoctrine()->getManager();
