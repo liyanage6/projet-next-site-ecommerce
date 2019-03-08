@@ -1,5 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block 'body' %}
+{% block body %}
     <h2>Homepage Admin</h2>
+    <nav id="main-nav" class="container navbar navbar-expand-lg navbar-light bg-light border rounded mb-3">
+        <ul class="navbar-nav">
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item {% if mainNavAdmin is defined %}active{% endif %}">
+                    <a class="nav-link" href="{{path('product_index')}}">Products</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 {% endblock %}

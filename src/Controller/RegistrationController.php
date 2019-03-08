@@ -10,6 +10,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +20,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  * Class RegistrationController
  * @package App\Controller
  */
-class RegistrationController extends Controller
+class RegistrationController extends AbstractController
 {
     /**
      * @param Request $request
@@ -39,11 +40,11 @@ class RegistrationController extends Controller
             $datas = $form->getData();
             // 3) encode the password (you could also do this via Doctrine listener)
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPlainPassword($datas->getPlainPassword());
             $user->setPassword($password);
             // on active par default
             $user->setIsActive(true);
             $user->setEmail($datas->getEmail());
-            $user->setPlainPassword($datas->getPlainPassword());
 //            $user->addRole("ROLE_ADMIN");
             // 4) save the user
             $em = $this->getDoctrine()->getManager();

@@ -8,19 +8,29 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
+use Doctrine\ORM\EntityManager;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomepageController extends Controller
+class HomepageController extends AbstractController
 {
-    /**
+
+     /**
      * @Route("/", name="homepage")
      */
     public function index ()
     {
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository('App\Entity\Product')->findAll();
+        $user = $this->getUser();
+
         return $this->render('homepage/index.html.twig', [
             'mainNavHome' => true,
-            'title' => 'Accueil'
+            'title' => 'Accueil',
+            'user' => $user,
+            'products' => $products
         ]);
     }
 }

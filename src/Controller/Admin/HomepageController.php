@@ -19,9 +19,12 @@ class HomepageController extends Controller
      */
     public function index ()
     {
+        $user = $this->getUser();
+
         return $this->render('admin/homepage/index.html.twig', [
             'mainNavAdmin' => true,
-            'title' => 'Espace Admin'
+            'title' => 'Espace Admin',
+            'user' => $user
         ]);
     }
 }
